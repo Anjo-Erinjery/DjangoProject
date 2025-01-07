@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Top-left Welcome Section -->
+        <div class="col-12 mb-3">
+            <h3 class="text-start fw-bold">Welcome, {{ user.username }}!</h3>
+        </div>
+    </div>
+
+    <!-- Pincode Form Section -->
+    {% if not pincode_valid %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white text-center">
+                    <h4>Enter Your Pincode</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="pincode" class="form-label">Pincode</label>
+                            <input type="text" id="pincode" name="pincode" class="form-control" placeholder="Enter your pincode" required>
+                        </div>
+                        <!-- Error Message -->
+                        <div class="container">
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Step-by-Step Procedure Section (Shown after Pincode is Submitted) -->
+    {% if pincode_valid %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center">
+                    <!-- Clickable Tab to Show Steps -->
+                    <h4 class="mb-0" id="procedure-heading" style="cursor: pointer;">
+                        House Permit<span id="arrow">▼</span>
+                    </h4>
+                </div>
+                <div class="card-body" id="procedure-content" style="display: none;">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step1Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            {% comment %} <strong>Step 1:</strong>{% endcomment %} Licensed supervisor/Engineer for preparing plan 
+                            <div class="collapse mt-2" id="step1Details">
+                                <ul>
+                                    <li>Site Visit</li>
+                                    <li>Preparing Plan</li>
+                                    <li>Customising plan </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step2Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong></strong> Required Documents
+                            <div class="collapse mt-2" id="step2Details">
+                                <ul>
+                                    <li  data-bs-toggle="collapse" data-bs-target="#deedCertificateDetails" aria-expanded="false" aria-controls="deedCertificateDetails" style="cursor: pointer;">
+                                        Deed Certificate <span>❔</span>
+                                        <div class="collapse mt-2" id="deedCertificateDetails">
+                                            <ul>
+                                                A deed of certificate confirms whether you are eligible for the leaseholder protections
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li  data-bs-toggle="collapse" data-bs-target="#PossessionCertificateDetails" aria-expanded="false" aria-controls="PossessionCertificateDetails" style="cursor: pointer;">
+                                        Pocession Certificate <span>❔</span>
+                                        <button class="btn btn-primary btn-sm ms-2" onclick="showPopup()">Apply</button>
+                                        <div class="collapse mt-2" id="PossessionCertificateDetails">
+                                            <ul>
+                                                Possession certificate is a document which a property seller gives to a buyer stating the possession date of the property
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>LandTax</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step3Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+        
+                            if Conversion of Property is happened then its details should de mentioned
+                            {% comment %} <div class="collapse mt-2" id="step3Details">
+                                <ul>
+                                    <li>Proof of Identity</li>
+                                    <li>Property Papers</li>
+                                    <li>Approvals</li>
+                                </ul>
+                            </div> {% endcomment %}
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step4Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong></strong> Permit fee.
+                            <div class="collapse mt-2" id="step4Details">
+                                <ul>
+                                    The permit fees for houses per square metre will be reduced from Rs 50 to Rs 25 in panchayats, from Rs 70 to Rs 35 in municipalities and from Rs 100 to Rs 40 in corporations and it may include some additional charges..
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step5Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong></strong> Duration for Permit Grant
+                            <div class="collapse mt-2" id="step5Details">
+                                <ul>
+                                    Permit will be granted within 15-25 days
+                                    <li>If there is any clarity issues ,Application may be returned or They will Contact You</li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %}
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.VJ-RTilhUvClUt41D5ilmgHaDw&pid=Api&P=0&h=180" class="card-img-top" alt="Government Office">
+                <div class="card-body">
+                    <h5 class="card-title">Understand the Paperwork</h5>
+                    <p class="card-text">call us :0487-2447425</p>
+                    <!--<a href="{% url 'guide' %}" class="btn btn-primary">Learn More</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.YPV9eysYNgq9aqrMUYrJzgAAAA&pid=Api&P=0&h=180" class="card-img-top" alt="Government Office">
+                <div class="card-body">
+                    <h5 class="card-title">Understand the Paperwork</h5>
+                    <p class="card-text">Opening Hours: 
+Monday: 10:00 AM – 5:00 PM
+Tuesday: 10:00 AM – 5:00 PM
+Wednesday: 10:00 AM – 5:00 PM
+Thursday: 10:00 AM – 5:00 PM
+Friday: 10:00 AM – 5:00 PM
+Saturday: 10:00 AM – 5:00 PM
+Sunday: Closed
+    </p>
+                    <!--<a href="{% url 'guide' %}" class="btn btn-primary">Learn More</a>-->
+                </div>
+            </div>
+        </div>
+        
+    {% endcomment %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center">
+                    <!-- Clickable Tab to Show Steps -->
+                    <h4 class="mb-0" id="procedureheading" style="cursor: pointer;">
+                        KSEB Connection<span id="arrow">▼</span>
+                    </h4>
+                </div>
+                <div class="card-body" id="procedurecontent" style="display: none;">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step1Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong></strong> Application Signed By Licensed Electrician
+                            <div class="collapse mt-2" id="step1Details">
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step2Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong></strong> Mandatory documents <span id="arrow">▼</span>
+                            <div class="collapse mt-2" id="step2Details">
+                                <ul>
+                                    <li>Copy of Aadhaar</li>
+                                    <li>Copy of Land Tax Paid</li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#ste32Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong>Step 2:</strong> Location<span id="arrow">▼</span>
+                            <div class="collapse mt-2" id="ste32Details">
+                                <ul>
+                                    <li>Kanimangalam,Near Overbridge</li>
+                                    <li> </li>
+                                    <a href="https://maps.app.goo.gl/eaC3mccnBt7t7Wjs9?g_st=iw"  onclick="https://maps.app.goo.gl/eaC3mccnBt7t7Wjs9?g_st=iw">Location</a>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        {% comment %} <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step3Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong>Step 1:</strong> Gather all required documents such as proof of identity, property papers, and approvals.
+                            <div class="collapse mt-2" id="step3Details">
+                                <ul>
+                                    <li>Proof of Identity</li>
+                                    <li>Property Papers</li>
+                                    <li>Approvals</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step4Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong>Step 1:</strong> Gather all required documents such as proof of identity, property papers, and approvals.
+                            <div class="collapse mt-2" id="step4Details">
+                                <ul>
+                                    <li>Proof of Identity</li>
+                                    <li>Property Papers</li>
+                                    <li>Approvals</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3" data-bs-toggle="collapse" data-bs-target="#step5Details" aria-expanded="false" aria-controls="step1Details" style="cursor: pointer;">
+                            <strong>Step 1:</strong> Gather all required documents such as proof of identity, property papers, and approvals.
+                            <div class="collapse mt-2" id="step5Details">
+                                <ul>
+                                    <li>Proof of Identity</li>
+                                    <li>Property Papers</li>
+                                    <li>Approvals</li>
+                                </ul>
+                            </div>
+                        </li> {% endcomment %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endif %}
+</div>
+
+<!-- JavaScript to Toggle Step-by-Step Procedure -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const heading = document.getElementById("procedure-heading");
+        const content = document.getElementById("procedure-content");
+        const arrow = document.getElementById("arrow");
+
+        heading.addEventListener("click", function() {
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.innerText = "▲";
+            } else {
+                content.style.display = "none";
+                arrow.innerText = "▼";
+            }
+        });
+    });
+</script>
+<script>function showPopup() {
+    bo
+    alert("Details for Applying Possession Certificate");
+}
+    document.addEventListener("DOMContentLoaded", function() {
+        const heading = document.getElementById("procedureheading");
+        const content = document.getElementById("procedurecontent");
+        const arrow = document.getElementById("arrow");
+
+        heading.addEventListener("click", function() {
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.innerText = "▲";
+            } else {
+                content.style.display = "none";
+                arrow.innerText = "▼";
+            }
+        });
+    });
+</script>
+
+{% endblock %}
