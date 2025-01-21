@@ -10,187 +10,187 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-5MyhbtwvhaA7VeLlIA6d6DfKS14UOeQso/0wr0YGaZlW8zOEIkz69Dq7G53Zuy8pjciy4wLBr5z5CeJLVc6Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         /* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa; /* Light gray background */
-    color: #343a40; /* Dark gray text */
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
 
-/* Navbar Styles */
-.navbar {
-    background-color:rgb(11, 127, 251); /* Blue background */
-}
-.navbar-brand, .nav-link {
-    color: orange !important; /* Orange text */
-}
-.nav-link:hover {
-    color: #ffdd57 !important; /* Yellow on hover */
-}
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+        }
+        .navbar-brand, .nav-link {
+            color: orange !important;
+        }
+        .nav-link:hover {
+            color: #ffdd57 !important;
+        }
 
-/* Footer Styles */
-footer {
-    background-color: #343a40; /* Dark gray background */
-    color: #ffffff; /* White text */
-}
-footer a {
-    color: orange; /* Orange links */
-    text-decoration: none;
-}
-footer a:hover {
-    text-decoration: underline;
-}
+        /* Footer Styles */
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        footer a {
+            color: orange;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
-/* Buttons */
-.btn-primary {
-    background-color: #ffdd57; /* Yellow button */
-    border: none;
-    color: #343a40; /* Dark gray text */
-}
-.btn-primary:hover {
-    background-color: #e6c600; /* Darker yellow */
-}
+        /* Buttons */
+        .btn-primary {
+            background-color: #ffdd57;
+            border: none;
+            color: #343a40;
+        }
+        .btn-primary:hover {
+            background-color: rgb(9, 126, 252);
+        }
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(to right,rgb(9, 126, 252),rgb(9, 126, 252)); /* Blue to Purple gradient */
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
-}
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, rgb(9, 126, 252), rgb(9, 126, 252));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            background: url('https://via.placeholder.com/1200x600') no-repeat center center;
+            background-size: cover;
+            opacity: 0.4;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
 
-.container22{
-    background-color: #ffffff; /* White background for content */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    display: flex;
-    justify-content: center; /* Center container content */
-    align-items: center; /* Vertically align items */
-    height: auto; /* Adjust height */
-}
+        /* Main Content */
+        .container.mt-4 {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
 
-/* Content Container */
-.container mt-5 {
-    background-color: #ffffff; /* White background for content */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    display: flex;
-    justify-content: center; /* Center container content */
-    align-items: center; /* Vertically align items */
-    height: auto; /* Adjust height */
-}
+        /* Profile Sidebar */
+        .profile-sidebar {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-sidebar .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 2px solid #e74c3c;
+        }
+        .profile-sidebar .profile-pic img {
+            width: 100%;
+            height: auto;
+        }
+        .profile-sidebar h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+        .profile-sidebar p {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0 20px;
+        }
 
-/* Profile Sidebar */
-.profile-sidebar {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        /* Profile Stats */
+        .profile-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .profile-stats div {
+            text-align: center;
+        }
+        .profile-stats div span {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .profile-stats div small {
+            font-size: 12px;
+            color: #888;
+        }
 
-.profile-sidebar .profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 15px;
-    border: 2px solid #e74c3c;
-}
+        /* Menu Styles */
+        .menu {
+            width: 100%;
+        }
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+        .menu a .icon {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #e74c3c;
+        }
+        .menu a .notification {
+            margin-left: auto;
+            background: #e74c3c;
+            color: white;
+            font-size: 12px;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
 
-.profile-sidebar .profile-pic img {
-    width: 100%;
-    height: auto;
-}
-
-.profile-sidebar h2 {
-    font-size: 18px;
-    margin: 0;
-    color: #333;
-}
-
-.profile-sidebar p {
-    font-size: 14px;
-    color: #888;
-    margin: 5px 0 20px;
-}
-
-/* Profile Stats */
-.profile-stats {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.profile-stats div {
-    text-align: center;
-}
-
-.profile-stats div span {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-}
-
-.profile-stats div small {
-    font-size: 12px;
-    color: #888;
-}
-
-/* Menu Styles */
-.menu {
-    width: 100%;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #333;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.menu a:hover {
-    background-color: #f0f0f0;
-}
-
-.menu a .icon {
-    font-size: 18px;
-    margin-right: 10px;
-    color: #e74c3c;
-}
-
-.menu a .notification {
-    margin-left: auto;
-    background: #e74c3c;
-    color: white;
-    font-size: 12px;
-    width: 16px;
-    height: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-
-/* Paragraphs */
-p {
-    color: #343a40; /* Unified dark gray for all paragraphs */
-}
-
+        /* Paragraphs */
+        p {
+            color: #343a40;
+        }
+        .mt-4 {
+            background-color: rgb(9, 126, 252);
+        }
+        .procedure-content {
+            color: rgb(9, 126, 252);
+        }
     </style>
 </head>
 <body>
@@ -204,7 +204,6 @@ p {
             </button> 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
@@ -226,15 +225,16 @@ p {
     
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Welcome PermitEase</h1>
-        <p>Your trusted partner for building dreams.</p>
-        <a href="{% url 'guide' %}" class="btn btn-primary">Get Started</a>
+        <div class="hero-content">
+            <h1>Welcome to PermitEase</h1>
+            <p>Your trusted partner for building dreams.</p>
+            <a href="{% url 'guide' %}" class="btn btn-primary">Get Started</a>
+        </div>
     </section>
 
     <!-- Main Content -->
     <div class="container mt-4">
         {% block content %}
-        <!-- Dynamic Content -->
         <img src="https://images.unsplash.com/photo-1554435493-93422e8220c8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9" alt="Description of image">
         {% endblock %}
     </div>
@@ -242,7 +242,7 @@ p {
     <!-- Footer -->
     <footer class="py-4">
         <div class="container text-center">
-            <p class="mb-0">Contact us:+912255225522       <a href="{% url 'terms' %}">Terms & Conditions</a></p>
+            <p class="mb-0">Contact us: +91-2255225522 &nbsp; <a href="{% url 'terms' %}">Terms & Conditions</a></p>
         </div>
     </footer>
 

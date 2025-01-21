@@ -15,6 +15,7 @@ def register(request):
     if request.method == "POST":
         username = request.POST.get('username')
         email = request.POST.get('email')
+        phone = request.POST.get('phone')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
@@ -33,7 +34,7 @@ def register(request):
             return render(request, 'register.html')
 
         # Create and save the user
-        user = User.objects.create_user(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password,phone=phone)
         user.save()
 
         messages.success(request, "Registration successful! You can now log in.")

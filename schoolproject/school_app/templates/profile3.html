@@ -25,7 +25,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .navbar-brand, .nav-link {
-            color: orange !important;
+            color: #fff !important;
             font-weight: 500;
         }
         .nav-link:hover {
@@ -47,10 +47,10 @@
 
         /* Main Container */
         .container {
-            margin-top: 40px;
+            margin-top: 50px;
             background-color: #ffffff;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease;
         }
@@ -129,7 +129,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">PermitEase</a>
-            <button class="navbar-toggler" action={% url 'home' %}type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -138,15 +138,14 @@
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"onclick="toggleAbout()">About</a>
+                        <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-                            {% comment %} <img src="img\user.png" alt="Profile" class="rounded-circle"> {% endcomment %}
-                            <span>👤</span>
+                            <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"onclick="showProfile()">View Profile</a></li>
+                            <li><a class="dropdown-item" href="#">View Profile</a></li>
                             <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Logout</a></li>
@@ -156,26 +155,8 @@
             </div>
         </div>
     </nav>
-    <!--profileSection-->
-    <div id="profileSection" class="container"style="display: none;">
-        <h4>Your Profile</h4>
-        <p><strong>Name:</strong>{{user.username}}</p>
-        <p><strong>Email:</strong> {{user.email}}</p>
-        <p><strong>Phone:</strong> {{user.phone}}</p>
-        <p><strong>Address:</strong> 123 Main Street, Springfield</p>
-        <button class="btn btn-danger" onclick="hideProfile()">Close</button>
-    </div>
-    <!-- About Section -->
-    <div id="aboutSection" class="container info-section"style="display: none;">
-        <h4>About Us</h4>
-        <p><strong>Email:</strong> support@permitease.com</p>
-        <p><strong>Phone:</strong> +9876543210</p>
-        <p><strong>Address:</strong> 456 Elm Street, Metropolis</p>
-        <button class="btn btn-danger" onclick="toggleAbout()">Close</button>
-    </div>
-
-
     
+    <!-- Main Content -->
     <div class="row justify-content-center">
         {% if not pincode_valid %}
         <div class="col-md-8">
@@ -203,8 +184,8 @@
             </div>
         </div>
         {% endif %}
-    
-    
+    </div>
+
     {% if pincode_valid %}
     <!-- Main Content -->
     <div class="container">
@@ -214,7 +195,7 @@
                 <label for="options" class="form-label">Choose an Option:</label>
                 <select class="form-select" id="options" required>
                     <option value="" disabled selected>Select...</option>
-                    <option value="option1">House Permit</option>
+                    <option value="option1">Building Permit</option>
                     <option value="option2">Renovation Permit</option>
                     <option value="option3">Demolition Permit</option>
                 </select>
@@ -227,13 +208,11 @@
         </div>
     </div>
     {% endif %}
-</div>
-
 
     <!-- Footer -->
-    {% comment %} <footer>
+    <footer>
         <p>&copy; 2025 PermitEase. All rights reserved.</p>
-    </footer> {% endcomment %}
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -241,7 +220,7 @@
     <!-- Custom Script -->
     <script>
         const stepsData = {
-            option1: ["Possesion Certificate will get from village office/ akshaya centre", "Location sketch -we get this from village office", "Orginal deed -It is better to mention the name of the owner of land in all other building procedure","Lincesed Engineer-plan ,draw appropriate plan according to the plot.","If there any old ."],
+            option1: ["Step 1: Fill out the application form.", "Step 2: Attach required documents.", "Step 3: Submit the application online."],
             option2: ["Step 1: Select the renovation type.", "Step 2: Provide necessary approvals.", "Step 3: Pay the processing fee."],
             option3: ["Step 1: Submit the demolition plan.", "Step 2: Obtain environmental clearance.", "Step 3: Schedule the demolition date."]
         };
@@ -251,7 +230,7 @@
             const stepsSection = document.getElementById("stepsSection");
             const stepsContainer = document.getElementById("steps");
             stepsContainer.innerHTML = "";
-    
+
             if (selectedOption && stepsData[selectedOption]) {
                 stepsSection.style.display = "block";
                 stepsData[selectedOption].forEach((step, index) => {
@@ -261,62 +240,4 @@
                         <span class="step-number">${index + 1}</span>
                         ${step}
                     `;
-                    stepsContainer.appendChild(stepDiv);
-                });
-    
-                // Add the calculator for house permits
-                if (selectedOption === "option1") {
-                    const calculatorDiv = document.createElement("div");
-                    calculatorDiv.className = "mt-3";
-                    calculatorDiv.innerHTML = `
-                        <h5>Permit Fee Calculator</h5>
-                        <label for="areaInput">Enter area in square meters:</label>
-                        <input type="number" id="areaInput" class="form-control w-50" placeholder="e.g., 100" />
-                        <button class="btn btn-primary mt-2" onclick="calculateFee()">Calculate Fee</button>
-                        <p class="mt-2" id="feeOutput" style="font-weight: bold;"></p>
-                    `;
-                    stepsContainer.appendChild(calculatorDiv);
-                }
-            } else {
-                stepsSection.style.display = "none";
-            }
-        }
-    
-        function calculateFee() {
-            const area = parseFloat(document.getElementById("areaInput").value);
-            const ratePerSqMeter = 50; // Example rate
-            if (!isNaN(area) && area > 0) {
-                const fee = area * ratePerSqMeter;
-                document.getElementById("feeOutput").textContent = `The permit fee is ₹${fee.toFixed(2)}`;
-            } else {
-                document.getElementById("feeOutput").textContent = "Please enter a valid area.";
-            }
-        }
-        function showProfile() {
-            document.getElementById("profileSection").style.display = "block";
-        }
-
-        function hideProfile() {
-            document.getElementById("profileSection").style.display = "none";
-        }
-        function toggleAbout() {
-            const aboutSection = document.getElementById("aboutSection");
-            if (aboutSection.style.display === "block") {
-                aboutSection.style.display = "none";
-            } else {
-                aboutSection.style.display = "block";
-            }
-        }
-        function calculateFee() {
-            const area = parseFloat(document.getElementById("areaInput").value);
-            const ratePerSqMeter = 50; // Example rate
-            if (!isNaN(area) && area > 0) {
-                const fee = area * ratePerSqMeter;
-                document.getElementById("feeOutput").textContent = `The permit fee is ₹${fee.toFixed(2)}`;
-            } else {
-                document.getElementById("feeOutput").textContent = "Please enter a valid area.";
-            }
-        }
-    </script>
-</body>
-</html>
+                    stepsContainer.append[_{{{CITATION{{{_1{](https://github.com/belmoussaoui/Coding-School-17/tree/93490ed46dcedfa1e648c31da8cb23928c34ce78/laravel%2F7-relations%2F2-one-to-many-commentaire%2Fresources%2Fviews%2Flayouts%2Fapp.blade.php)[_{{{CITATION{{{_2{](https://github.com/Rishika36/mobilepay100/tree/26de2972eb7282624cfecca7e3df25b533872577/sparks%2Fnav.php)[_{{{CITATION{{{_3{](https://github.com/juanpablo-code2003/marcha/tree/bcdc214e6303e4b896f739cf22c22e2e75d3a4e2/app%2FViews%2Fingreso.php)[_{{{CITATION{{{_4{](https://github.com/SiThu34297/PHP_Article_Project/tree/bf5a9b8c62932f07ad40b811516da802cb719063/views%2Flayouts%2Fheader.php)[_{{{CITATION{{{_5{](https://github.com/netrometro/upe_20202_dodois/tree/0b0091dbed80b22abb7e88359e256a1dca63ac6f/app%2Fcomponents%2Fmenu.js)[_{{{CITATION{{{_6{](https://github.com/gagas3113/uts_1402019041/tree/95f760ab6348f7119af08858f43580ca1bf172f1/uts_1402019041%2Findex.php)[_{{{CITATION{{{_7{](https://github.com/aksaykumar06/Calakan_id.github/tree/e66c3662c33946c211bec39eaf78e8c15d1a320e/loginadmin.php)[_{{{CITATION{{{_8{](https://github.com/glenleikin/Aliv/tree/47a17b7581e00c945e99fc790634726d433a8055/index.php)[_{{{CITATION{{{_9{](https://github.com/Saint-S-Prit/campus_social/tree/b45c85f1c7e682ca7410b55a015025a130b7f83d/.history%2Ftop-bar_20210403140217.php)[_{{{CITATION{{{_10{](https://github.com/vallauri-ict/javascript-playground-michele-ghisolfi/tree/80e15409f40771fe46afbc83ab0b1e3f447e8105/Bootstrap%2F000_Tutorial%2FREADME.md)[_{{{CITATION{{{_11{](https://github.com/dwivedisshyam/EntrySystem/tree/a958e8deafa00b7568d9817188de2d1b3c47d3fa/templates%2Fstudent%2FnavMenu.php)[_{{{CITATION{{{_12{](https://github.com/qmnichol/NewServiceFinder/tree/d33340d10ae856833d2f0c53fd052997b95ebe1b/viewEmployee.php)[_{{{CITATION{{{_13{](https://github.com/oksasatya/Surveyasia/tree/5de65c4fa7bb3f48109fac949db4620984e87f7f/resources%2Fviews%2Flayouts%2Fnav.blade.php)[_{{{CITATION{{{_14{](https://github.com/Binay9/News-portal/tree/52de946d52808f0089d4e75217edaa987eced736/resources%2Fviews%2Ffront%2Fapp.blade.php)

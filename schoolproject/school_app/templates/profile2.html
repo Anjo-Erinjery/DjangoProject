@@ -3,134 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Guide</title>
-    
+    <title>Step-by-Step Procedure</title>
     <!-- Bootstrap CSS -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
-
+    <!-- Custom CSS -->
     <style>
-        /* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa; /* Light gray background */
-    color: #343a40; /* Dark gray text */
-}
+        /* Background Style */
+        body {
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
 
-/* Navbar Styles */
-.navbar {
-    background-color: #007bff; /* Blue background */
-}
-.navbar-brand, .nav-link {
-    color: orange !important; /* Orange text */
-}
-.nav-link:hover {
-    color: #ffdd57 !important; /* Yellow on hover */
-}
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #16A085, #2ECC71);
+            padding: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: orange !important;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #ffdd57 !important;
+        }
 
-/* Footer Styles */
-footer {
-    background-color: #343a40; /* Dark gray background */
-    color: #ffffff; /* White text */
-}
-footer a {
-    color: orange; /* Orange links */
-    text-decoration: none;
-}
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Buttons */
-.btn-primary {
-    background-color: #ffdd57; /* Yellow button */
-    border: none;
-    color: #343a40; /* Dark gray text */
-}
-.btn-primary:hover {
-    background-color: #e6c600; /* Darker yellow */
-}
-
-/* Hero Section */
-.hero {
-    background: linear-gradient(to right, #007bff, #6610f2); /* Blue to Purple gradient */
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
-}
-
-/* Content Container */
-.container {
-    background-color: #ffffff; /* White background for content */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    display: flex;
-    justify-content: center; /* Center container content */
-    align-items: center; /* Vertically align items */
-    height: auto; /* Adjust height */
-}
-
-
+        /* Profile and About Sections */
+        .info-section {
+            display: none;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            margin: 20px 0;
+        }
+        .info-section h4 {
+            display:none;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
-        
         <div class="container">
-            
-            
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle d-flex align-items-center" href="" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    </i>
-                    <span class="profile-icon"></span>
-
-                
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="#">My Certificates</a></li>
-                    <li><a class="dropdown-item" href="#">Stats</a></li>
-                    <li><a class="dropdown-item" href="#">Notifications</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'home' %}">Logout</a></li>
-                </ul>
-            </li> 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">PermitEase</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
-            </button> 
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="#" onclick="toggleAbout()">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+                            <span>👤</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="showProfile()">View Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
                     </li>
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact'  %}">Contact</a>
-                    </li>
-                    -->
                 </ul>
             </div>
         </div>
     </nav>
-    
-    
-    <footer class="py-4">
-        <div class="container text-center">
-            <p class="mb-0">Contact us:+912255225522       <a href="{% url 'terms' %}">Terms & Conditions</a></p>
-        </div>
-    </footer>
+
+    <!-- Profile Section -->
+    <div id="profileSection" class="container info-section">
+        <h4>Your Profile</h4>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Email:</strong> johndoe@example.com</p>
+        <p><strong>Phone:</strong> +1234567890</p>
+        <p><strong>Address:</strong> 123 Main Street, Springfield</p>
+        <button class="btn btn-danger" onclick="hideProfile()">Close</button>
+    </div>
+
+    <!-- About Section -->
+    <div id="aboutSection" class="container info-section">
+        <h4>About Us</h4>
+        <p><strong>Email:</strong> support@permitease.com</p>
+        <p><strong>Phone:</strong> +9876543210</p>
+        <p><strong>Address:</strong> 456 Elm Street, Metropolis</p>
+        <button class="btn btn-danger" onclick="toggleAbout()">Close</button>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Script -->
+    <script>
+        function showProfile() {
+            document.getElementById("profileSection").style.display = "block";
+        }
+
+        function hideProfile() {
+            document.getElementById("profileSection").style.display = "none";
+        }
+
+        function toggleAbout() {
+            const aboutSection = document.getElementById("aboutSection");
+            if (aboutSection.style.display === "block") {
+                aboutSection.style.display = "none";
+            } else {
+                aboutSection.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
