@@ -57,7 +57,7 @@ def guide(request):
         if user is not None:
             login(request,user)
             messages.success(request, "Login successful!")
-            return redirect('profile')  # Redirect to the homepage or dashboard
+            return redirect('home')  # Redirect to the homepage or dashboard
         else:
             messages.error(request, "Invalid username or password.")
             return render(request, 'login.html')
@@ -132,3 +132,5 @@ def terms(request):
     Renders the terms and conditions page.
     """
     return render(request, 'terms.html')
+def work(request):
+    return render(request,'work.html')

@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step-by-Step Procedure</title>
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <!-- Custom CSS -->
+    <style>
+        /* Background Style */
+        body {
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #16A085, #2ECC71);
+            padding: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: orange !important;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #ffdd57 !important;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+
+        /* Profile Dropdown */
+        .dropdown-menu {
+            background-color: #ffffff;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Main Container */
+        .container {
+            width: 95%;
+            margin-top: 40px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        /* Headings */
+        h2, h4 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Steps Section */
+        .step {
+            background: #16A085;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .step-number {
+            background-color: #ffdd57;
+            color: #343a40;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: linear-gradient(90deg, #16A085, #2ECC71);
+            border: none;
+            transition: background 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2ECC71, #16A085);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #16A085, #2ECC71);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .worker-card {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .worker-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        .worker-image {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .worker-details {
+            flex-grow: 1;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Profile Dropdown */
+        .dropdown-menu {
+            background-color: #ffffff;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">PermitEase</a>
+            <button class="navbar-toggler" action={% url 'home' %}type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"onclick="toggleAbout()">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+                            {% comment %} <img src="img\user.png" alt="Profile" class="rounded-circle"> {% endcomment %}
+                            <span>👤</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"onclick="showProfile()">View Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--profileSection-->
+    <div id="profileSection" class="container"style="display: none;">
+        <h4>Your Profile</h4>
+        <p><strong>Name:</strong>{{user.username}}</p>
+        <p><strong>Email:</strong> {{user.email}}</p>
+        {% comment %} <p><strong>Phone:</strong> {{user.phone}}</p> {% endcomment %}
+        {% comment %} <p><strong>Address:</strong> 123 Main Street, Springfield</p> {% endcomment %}
+        <button class="btn btn-danger" onclick="hideProfile()">Close</button>
+    </div>
+    <!-- About Section -->
+    <div id="aboutSection" class="container info-section"style="display: none;">
+        <h4>About Us</h4>
+        <p><strong>Email:</strong> support@permitease.com</p>
+        <p><strong>Phone:</strong> +9876543210</p>
+        <p><strong>Address:</strong> 456 Elm Street, Metropolis</p>
+        <button class="btn btn-danger" onclick="toggleAbout()">Close</button>
+    </div>
+</div>
+<div class="container">
+    <h2 class="text-center mb-4">Find Skilled Workers</h2>
+    <p class="text-center">Select the type of workers you need, and we'll show you their details:</p>
+    <form id="workerForm" class="mb-4">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Electrician" id="electrician">
+            <label class="form-check-label" for="electrician">
+                <!--<img src="D:\anjo - Copy\schoolproject\static\image\electrician.jpg" alt="Electrician" class="worker-image">
+            -->Electrician
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Plumber" id="plumber">
+            <label class="form-check-label" for="plumber">
+                <!--<img src="img\plumber.jpg" alt="Plumber" class="worker-image">
+            -->Plumber
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Home Building" id="homeBuilding">
+            <label class="form-check-label" for="homeBuilding">
+                <!--<img src="https://in.images.search.yahoo.com/images/view;_ylt=Awr1WTXpa6NnqKAockG9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzRkNjQ4N2FjMTdlNjQzNDhkMDBjYjQ0YmZkNDVlZGYzBGdwb3MDOARpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Danimated%2Bimage%2Bof%2Bconstruction%2Bsite%26ei%3DUTF-8%26fr%3Dcrmas%26fr2%3Dp%253As%252Cv%253Ai%252Cm%253Asb-top%26tab%3Dorganic%26ri%3D8&w=1000&h=750&imgurl=cdn3.vectorstock.com%2Fi%2F1000x1000%2F41%2F87%2Fcartoon-scene-of-building-construction-site-vector-42214187.jpg&rurl=https%3A%2F%2Fproper-cooking.info%2Fconstruction-site-animated&size=167KB&p=animated+image+of+construction+site&oid=4d6487ac17e64348d00cb44bfd45edf3&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&fr=crmas&tt=Construction+Site+Animated&b=0&ni=160&no=8&ts=&tab=organic&sigr=rV42w7CLCWX5&sigb=C0n6UDnDJORF&sigi=WIQbzBNQr_1N&sigt=wnsIYoiRTWP0&.crumb=/cuwR1ORHL.&fr=crmas&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top" alt="Home Building" class="worker-image">
+            -->Home Building
+            </label>
+        </div>
+        <div class="text-center mt-3">
+            <button type="button" class="btn btn-primary px-4 py-2" onclick="getWorkerDetails()">Show Workers</button>
+        </div>
+    </form>
+
+    <div id="workerDetails" class="mt-4"></div>
+</div>
+
+<script>
+function showProfile() {
+    console.log("showProfile triggered");
+    document.getElementById("profileSection").style.display = "block";
+    
+}
+
+function hideProfile() {
+    document.getElementById("profileSection").style.display = "none";
+}
+function toggleAbout() {
+    const aboutSection = document.getElementById("aboutSection");
+    if (aboutSection.style.display === "block") {
+        aboutSection.style.display = "none";
+    } else {
+        aboutSection.style.display = "block";
+    }
+}
+const workers = {
+    Electrician: [
+        { name: "John Doe", phone: "123-456-7890", location: "Downtown", image: "img\electrician_site.jpg" },
+        { name: "Jane Smith", phone: "987-654-3210", location: "Suburb", image: "D:\anjo - Copy\img\electrician_site.jpg" },
+    ],
+    Plumber: [
+        { name: "Sam Wilson", phone: "456-789-1234", location: "City Center", image: "https://via.placeholder.com/60" },
+        { name: "Sara Lee", phone: "321-654-9870", location: "Riverside", image: "https://via.placeholder.com/60" },
+    ],
+    "Home Building": [
+        { name: "Bob Brown", phone: "654-987-3210", location: "Hillside", image: "https://via.placeholder.com/60" },
+        { name: "Alice Green", phone: "789-123-4567", location: "Beachside", image: "https://via.placeholder.com/60" },
+    ],
+};
+function showProfile() {
+    document.getElementById("profileSection").style.display = "block";
+}
+
+function hideProfile() {
+    document.getElementById("profileSection").style.display = "none";
+}
+function getWorkerDetails() {
+    const selectedFields = [];
+    const form = document.getElementById("workerForm");
+    const checkboxes = form.querySelectorAll("input[type=checkbox]:checked");
+
+    checkboxes.forEach((checkbox) => selectedFields.push(checkbox.value));
+
+    const detailsContainer = document.getElementById("workerDetails");
+    detailsContainer.innerHTML = "";
+
+    if (selectedFields.length === 0) {
+        detailsContainer.innerHTML = "<p class='text-danger text-center'>Please select at least one field.</p>";
+        return;
+    }
+
+    selectedFields.forEach((field) => {
+        if (workers[field]) {
+            const fieldTitle = `<h4>${field} Workers:</h4>`;
+            const workerList = workers[field]
+                .map(
+                    (worker) => `
+                    <div class="worker-card d-flex align-items-center">
+                        <img src="${worker.image}" alt="${field}" class="worker-image">
+                        <div class="worker-details">
+                            <p><strong>Name:</strong> ${worker.name}</p>
+                            <p><strong>Phone:</strong> ${worker.phone}</p>
+                            <p><strong>Location:</strong> ${worker.location}</p>
+                        </div>
+                    </div>
+                `
+                )
+                .join("");
+            detailsContainer.innerHTML += fieldTitle + workerList;
+        }
+    });
+}
+
+</script>
+</body>
+</html>

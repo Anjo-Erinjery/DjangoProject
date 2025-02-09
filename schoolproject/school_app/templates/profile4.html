@@ -25,7 +25,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .navbar-brand, .nav-link {
-            color: #fff !important;
+            color: orange !important;
             font-weight: 500;
         }
         .nav-link:hover {
@@ -47,21 +47,16 @@
 
         /* Main Container */
         .container {
-            margin-top: 50px;
+            width: 90%;
+            margin-top: 40px;
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease;
         }
         .container:hover {
             transform: scale(1.02);
-        }
-
-        /* Headings */
-        h2, h4 {
-            font-weight: 600;
-            color: #333;
         }
 
         /* Steps Section */
@@ -89,104 +84,15 @@
             font-size: 1.2rem;
         }
 
-        /* Button Styling */
-        .btn-primary {
-            background: linear-gradient(90deg, #16A085, #2ECC71);
-            border: none;
-            transition: background 0.3s ease;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(90deg, #2ECC71, #16A085);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(90deg, #16A085, #2ECC71);
-            color: #ffffff;
-            text-align: center;
-            padding: 15px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Contractor Details */
+        #contractorDetails {
+            display: none;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">PermitEase</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-                            <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">View Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="row justify-content-center">
-        {% if not pincode_valid %}
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-info text-white text-center">
-                    <h4>Enter Your Pincode</h4>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="pincode" class="form-label">Pincode</label>
-                            <input type="text" id="pincode" name="pincode" class="form-control" placeholder="Enter your pincode" required>
-                        </div>
-                        <div class="container">
-                            {% for message in messages %}
-                                <div class="alert alert-danger">{{ message }}</div>
-                            {% endfor %}
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    
-    
-    {% if pincode_valid %}
-    <!-- Main Content -->
     <div class="container">
         <h2 class="text-center mb-4">Select an Option to Begin</h2>
         <form id="procedureForm">
@@ -194,9 +100,7 @@
                 <label for="options" class="form-label">Choose an Option:</label>
                 <select class="form-select" id="options" required>
                     <option value="" disabled selected>Select...</option>
-                    <option value="option1">Building Permit</option>
-                    <option value="option2">Renovation Permit</option>
-                    <option value="option3">Demolition Permit</option>
+                    <option value="option1">House Permit</option>
                 </select>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="showProcedure()">Submit</button>
@@ -205,46 +109,71 @@
             <h4>Steps to Follow:</h4>
             <div id="steps"></div>
         </div>
+
+        <!-- Recommended Contractors -->
+        <div id="contractorDropdown" class="mt-3" style="display: none;">
+            <h5>Recommended Contractors</h5>
+            <label for="contractors">Select a Contractor:</label>
+            <select id="contractors" class="form-select w-50">
+                <option value="" disabled selected>Select a contractor...</option>
+                <option value="contractor1">John Doe - Electrician</option>
+                <option value="contractor2">Jane Smith - Builder</option>
+                <option value="contractor3">Michael Lee - Plumber</option>
+            </select>
+            <button class="btn btn-primary mt-2" onclick="viewContractorDetails()">View Details</button>
+            <div id="contractorDetails" class="mt-2"></div>
+        </div>
+
+        <!-- Permit Fee Calculator -->
+        <div id="feeCalculator" class="mt-3" style="display: none;">
+            <h5>Permit Fee Calculator</h5>
+            <label for="areaInput">Enter area in square meters:</label>
+            <input type="number" id="areaInput" class="form-control w-50" placeholder="e.g., 100" />
+            <button class="btn btn-primary mt-2" onclick="calculateFee()">Calculate Fee</button>
+            <p class="mt-2" id="feeOutput" style="font-weight: bold;"></p>
+        </div>
     </div>
-    {% endif %}
-</div>
 
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 PermitEase. All rights reserved.</p>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom Script -->
     <script>
-        const stepsData = {
-            option1: ["Step 1: Fill out the application form.", "Step 2: Attach required documents.", "Step 3: Submit the application online."],
-            option2: ["Step 1: Select the renovation type.", "Step 2: Provide necessary approvals.", "Step 3: Pay the processing fee."],
-            option3: ["Step 1: Submit the demolition plan.", "Step 2: Obtain environmental clearance.", "Step 3: Schedule the demolition date."]
-        };
-
         function showProcedure() {
             const selectedOption = document.getElementById("options").value;
             const stepsSection = document.getElementById("stepsSection");
             const stepsContainer = document.getElementById("steps");
-            stepsContainer.innerHTML = "";
+            const contractorDropdown = document.getElementById("contractorDropdown");
+            const feeCalculator = document.getElementById("feeCalculator");
 
-            if (selectedOption && stepsData[selectedOption]) {
+            stepsContainer.innerHTML = "";
+            contractorDropdown.style.display = "none";
+            feeCalculator.style.display = "none";
+
+            if (selectedOption === "option1") {
                 stepsSection.style.display = "block";
-                stepsData[selectedOption].forEach((step, index) => {
-                    const stepDiv = document.createElement("div");
-                    stepDiv.className = "step";
-                    stepDiv.innerHTML = `
-                        <span class="step-number">${index + 1}</span>
-                        ${step}
-                    `;
-                    stepsContainer.appendChild(stepDiv);
-                });
+                contractorDropdown.style.display = "block";
+                feeCalculator.style.display = "block";
             } else {
                 stepsSection.style.display = "none";
+            }
+        }
+
+        function viewContractorDetails() {
+            const contractorSelect = document.getElementById("contractors");
+            const contractorDetails = document.getElementById("contractorDetails");
+            const selectedContractor = contractorSelect.value;
+            
+            let details = "";
+            if (selectedContractor === "contractor1") {
+                details = "Location: Metropolis, Phone: +1234567890";
+            } else if (selectedContractor === "contractor2") {
+                details = "Location: Gotham, Phone: +0987654321";
+            } else if (selectedContractor === "contractor3") {
+                details = "Location: Star City, Phone: +1122334455";
+            }
+            
+            if (details) {
+                contractorDetails.textContent = details;
+                contractorDetails.style.display = "block";
+            } else {
+                contractorDetails.style.display = "none";
             }
         }
     </script>

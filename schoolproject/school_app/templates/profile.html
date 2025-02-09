@@ -47,6 +47,7 @@
 
         /* Main Container */
         .container {
+            width: 90%;
             margin-top: 40px;
             background-color: #ffffff;
             padding: 15px;
@@ -161,8 +162,8 @@
         <h4>Your Profile</h4>
         <p><strong>Name:</strong>{{user.username}}</p>
         <p><strong>Email:</strong> {{user.email}}</p>
-        <p><strong>Phone:</strong> {{user.phone}}</p>
-        <p><strong>Address:</strong> 123 Main Street, Springfield</p>
+        {% comment %} <p><strong>Phone:</strong> {{user.phone}}</p> {% endcomment %}
+        {% comment %} <p><strong>Address:</strong> 123 Main Street, Springfield</p> {% endcomment %}
         <button class="btn btn-danger" onclick="hideProfile()">Close</button>
     </div>
     <!-- About Section -->
@@ -215,8 +216,9 @@
                 <select class="form-select" id="options" required>
                     <option value="" disabled selected>Select...</option>
                     <option value="option1">House Permit</option>
-                    <option value="option2">Renovation Permit</option>
-                    <option value="option3">Demolition Permit</option>
+                    <option value="option2">Pocession Certificate</option>
+                    <option value="option3">Cable Connection</option>
+                    <option value="option4">KSEB Connection</option>
                 </select>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="showProcedure()">Submit</button>
@@ -226,8 +228,37 @@
             <div id="steps"></div>
         </div>
     </div>
+            <!-- Recommended Contractors -->
+            <div id="contractorDropdown" class="mt-3" style="display: none;">
+                <h5>Recommended Contractors</h5>
+                <label for="contractors">Select a Contractor:</label>
+                <select id="contractors" class="form-select w-50">
+                    <option value="" disabled selected>Select a contractor...</option>
+                    <option value="contractor1">John Doe - Electrician</option>
+                    <option value="contractor2">Jane Smith - Builder</option>
+                    <option value="contractor3">Michael Lee - Plumber</option>
+                </select>
+                <button class="btn btn-primary mt-2" onclick="viewContractorDetails()">View Details</button>
+                <div id="contractorDetails" class="mt-2"></div>
+            </div>
+    <div id="contractorDropdown" class="mt-3" style="display: none;">
+        <h5>Recommended Contractors</h5>
+        <label for="contractors">Select a Contractor:</label>
+        <select id="contractors" class="form-select w-50">
+            <option value="" disabled selected>Select a contractor...</option>
+            <option value="contractor1">John Doe - Electrician (Location: Metropolis, Phone: +1234567890)</option>
+            <option value="contractor2">Jane Smith - Builder (Location: Gotham, Phone: +0987654321)</option>
+            <option value="contractor3">Michael Lee - Plumber (Location: Star City, Phone: +1122334455)</option>
+        </select>
+        <button class="btn btn-primary mt-2" onclick="viewContractorDetails()">View Details</button>
+        <div id="contractorDetails" class="mt-2" style="font-weight: bold;"></div>
+    </div>
+    
     {% endif %}
+    
 </div>
+
+
 
 
     <!-- Footer -->
@@ -241,45 +272,64 @@
     <!-- Custom Script -->
     <script>
         const stepsData = {
-            option1: ["Possesion Certificate will get from village office/ akshaya centre", "Location sketch -we get this from village office", "Orginal deed -It is better to mention the name of the owner of land in all other building procedure","Lincesed Engineer-plan ,draw appropriate plan according to the plot.","If there any old ."],
-            option2: ["Step 1: Select the renovation type.", "Step 2: Provide necessary approvals.", "Step 3: Pay the processing fee."],
-            option3: ["Step 1: Submit the demolition plan.", "Step 2: Obtain environmental clearance.", "Step 3: Schedule the demolition date."]
+            option1: ["Possesion Certificate ,Orginal Deed", 'Orginal Deed", "Location sketch -we get this from village office <a href="https://maps.app.goo.gl/33q7riGMVSA2L9d69?g_st=com.google.maps.preview.copy" target="https://maps.app.goo.gl/33q7riGMVSA2L9d69?g_st=com.google.maps.preview.copy">Village Office</a>', "Orginal deed -It is better to mention the name of the owner of land in all other building procedure","If there is an old house in the property, if it is being demolished and disposed of, then the existing building should be shown in the group showing the proposed building.","Lincesed Engineer-plan ,draw appropriate plan according to the plot.","Need to took a KSEB temporary Connection","Find a good contractor"],
+            option2: ["A possession letter is a document that mentions the date within which the buyer will have the possession of his under-construction home. A possession letter, thus, acts as a proof of promise on the part of the builder that they are liable to provide the possession of the unit to the buyer as per the date mentioned in the possession letter.","Apply for Pocession Certificate on Akshaya Centre", "Required Document:- .", 'Location :- <a href="https://maps.app.goo.gl/wbvq7YLFrHpH6yQeA?g_st=com.google.maps.preview.copy" target="https://maps.app.goo.gl/wbvq7YLFrHpH6yQeA?g_st=com.google.maps.preview.copy">Akshaya Centre</a>'],
+            option3: ["KeralaVision:-.", "Asianet :- .", "Step 3: Schedule the demolition date."],
+            option4: ["Kseb-concerned letter from the lincesed electrician","copy of land tax",'Location :- <a href="https://maps.app.goo.gl/i36xL2nKZSx48t8w9?g_st=com.google.maps.preview.copy" target="https://maps.app.goo.gl/i36xL2nKZSx48t8w9?g_st=com.google.maps.preview.copy">KSEB Office</a>']
         };
 
         function showProcedure() {
             const selectedOption = document.getElementById("options").value;
-            const stepsSection = document.getElementById("stepsSection");
-            const stepsContainer = document.getElementById("steps");
-            stepsContainer.innerHTML = "";
-    
-            if (selectedOption && stepsData[selectedOption]) {
-                stepsSection.style.display = "block";
-                stepsData[selectedOption].forEach((step, index) => {
-                    const stepDiv = document.createElement("div");
-                    stepDiv.className = "step";
-                    stepDiv.innerHTML = `
-                        <span class="step-number">${index + 1}</span>
-                        ${step}
-                    `;
-                    stepsContainer.appendChild(stepDiv);
-                });
-    
-                // Add the calculator for house permits
-                if (selectedOption === "option1") {
-                    const calculatorDiv = document.createElement("div");
-                    calculatorDiv.className = "mt-3";
-                    calculatorDiv.innerHTML = `
-                        <h5>Permit Fee Calculator</h5>
-                        <label for="areaInput">Enter area in square meters:</label>
-                        <input type="number" id="areaInput" class="form-control w-50" placeholder="e.g., 100" />
-                        <button class="btn btn-primary mt-2" onclick="calculateFee()">Calculate Fee</button>
-                        <p class="mt-2" id="feeOutput" style="font-weight: bold;"></p>
-                    `;
-                    stepsContainer.appendChild(calculatorDiv);
-                }
-            } else {
-                stepsSection.style.display = "none";
+        const stepsSection = document.getElementById("stepsSection");
+        const stepsContainer = document.getElementById("steps");
+        const contractorDropdown = document.getElementById("contractorDropdown");
+        stepsContainer.innerHTML = "";
+        
+        if (selectedOption && stepsData[selectedOption]) {
+            stepsSection.style.display = "block";
+            stepsData[selectedOption].forEach((step, index) => {
+                const stepDiv = document.createElement("div");
+                stepDiv.className = "step";
+                stepDiv.innerHTML = `
+                    <span class="step-number">${index + 1}</span>
+                    ${step}
+                `;
+                stepsContainer.appendChild(stepDiv);
+            });
+
+            // Show the contractor dropdown for the "House Permit" option
+            if (selectedOption === "option1") {
+                const contractorDiv = document.createElement("div");
+                contractorDiv.className = "mt-3";
+                contractorDiv.innerHTML = `
+                    <h5>Recommended Contractors</h5>
+                    <label for="contractors">Select a Contractor:</label>
+                    <select id="contractors" class="form-select w-50">
+                        <option value="" disabled selected>Select a contractor...</option>
+                        <option value="contractor1">John Doe </option>
+                        <option value="contractor2">Jane Smith</option>
+                        <option value="contractor3">Michael Lee </option>
+                    </select>
+                    <button class="btn btn-primary mt-2" onclick="viewContractorDetails()">View Details</button>
+                    <div id="contractorDetails" class="mt-2" style="font-weight: bold;"></div>
+                `;
+                stepsContainer.appendChild(contractorDiv);
+
+                const calculatorDiv = document.createElement("div");
+                calculatorDiv.className = "mt-3";
+                calculatorDiv.innerHTML = `
+                    <h5>Permit Fee Calculator</h5>
+                    <label for="areaInput">Enter area in square meters:</label>
+                    <input type="number" id="areaInput" class="form-control w-50" placeholder="e.g., 100" />
+                    <button class="btn btn-primary mt-2" onclick="calculateFee()">Calculate Fee</button>
+                    <p class="mt-2" id="feeOutput" style="font-weight: bold;"></p>
+                `;
+                stepsContainer.appendChild(calculatorDiv);
             }
+        } else {
+            stepsSection.style.display = "none";
+        }
+    
         }
     
         function calculateFee() {
@@ -315,6 +365,27 @@
                 document.getElementById("feeOutput").textContent = `The permit fee is ₹${fee.toFixed(2)}`;
             } else {
                 document.getElementById("feeOutput").textContent = "Please enter a valid area.";
+            }
+        }
+        function viewContractorDetails() {
+            const contractorSelect = document.getElementById("contractors");
+            const contractorDetails = document.getElementById("contractorDetails");
+            const selectedContractor = contractorSelect.value;
+            
+            let details = "";
+            if (selectedContractor === "contractor1") {
+                details = "Location: Metropolis, Phone: +1234567890";
+            } else if (selectedContractor === "contractor2") {
+                details = "Location: Gotham, Phone: +0987654321";
+            } else if (selectedContractor === "contractor3") {
+                details = "Location: Star City, Phone: +1122334455";
+            }
+            
+            if (details) {
+                contractorDetails.textContent = details;
+                contractorDetails.style.display = "block";
+            } else {
+                contractorDetails.style.display = "none";
             }
         }
     </script>

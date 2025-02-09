@@ -12,8 +12,9 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{% url 'guide' %}">
-                        {% csrf_token %}
+                        {%csrf_token%}
                         <div class="mb-3">
+                            
                             <label for="username" class="form-label">Username</label>
                             <input
                                 type="text"
@@ -39,6 +40,11 @@
                             <button type="submit" class="btn btn-primary">
                                 Login
                             </button>
+                        </div>
+                        <div class="container">
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
                         </div>
                     </form>
                 </div>
