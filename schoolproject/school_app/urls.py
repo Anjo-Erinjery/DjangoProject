@@ -14,5 +14,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),  # About Page
     path('contact/', views.contact, name='contact'),  # Contact Page
     path('terms/', views.terms, name='terms'),
-      path('work/', views.work, name='work'),  # Terms & Conditions Page
+    path('work/', views.work, name='work'), 
+    path('plans/', views.plans, name='plans'), # Terms & Conditions Page
 ]

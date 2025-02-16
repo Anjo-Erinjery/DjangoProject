@@ -66,25 +66,28 @@ def guide(request):
 from django.shortcuts import render
 from django.contrib import messages
 
+from django.contrib import messages
+from django.shortcuts import render
+
 def profile(request):
     pincode_valid = False  # Default state; procedure hidden until pincode is verified
+    valid_pincodes = {'680026', '680027'}  # Set of valid pincodes
 
     if request.method == 'POST':
         pincode = request.POST.get('pincode')
 
-        # Example validation logic: Check if pincode is a 6-digit number
-        if len(pincode) == 6 and pincode=='680026':
-        
-            
+        # Check if pincode is in the valid set
+        if pincode in valid_pincodes:
             pincode_valid = True
-        
         else:
-            messages.error(request, "Invalid pincode! Please enter a Valid pincode.")
+            messages.error(request, "Invalid pincode! Please enter a valid pincode.")
 
     context = {
         'pincode_valid': pincode_valid,
+        'pincode_valid2': pincode_valid,
     }
     return render(request, 'profile.html', context)
+
 
 
 """def profile(request):
@@ -134,3 +137,5 @@ def terms(request):
     return render(request, 'terms.html')
 def work(request):
     return render(request,'work.html')
+def plans(request):
+    return render(request,'plans.html')

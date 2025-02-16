@@ -179,7 +179,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{% url 'register' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"onclick="toggleAbout()">About</a>
@@ -225,22 +225,25 @@
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" value="Electrician" id="electrician">
             <label class="form-check-label" for="electrician">
-                <!--<img src="D:\anjo - Copy\schoolproject\static\image\electrician.jpg" alt="Electrician" class="worker-image">
-            -->Electrician
+                {% load static %}
+
+                <img src="{% static 'images/electrician.jpg' %}" alt="Electrician" class="worker-image">
+
+            Electrician
             </label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" value="Plumber" id="plumber">
             <label class="form-check-label" for="plumber">
-                <!--<img src="img\plumber.jpg" alt="Plumber" class="worker-image">
-            -->Plumber
+            <img src="{% static 'images/plumber.jpg' %}" alt="Plumber" class="worker-image">
+            Plumber
             </label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" value="Home Building" id="homeBuilding">
             <label class="form-check-label" for="homeBuilding">
-                <!--<img src="https://in.images.search.yahoo.com/images/view;_ylt=Awr1WTXpa6NnqKAockG9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzRkNjQ4N2FjMTdlNjQzNDhkMDBjYjQ0YmZkNDVlZGYzBGdwb3MDOARpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Danimated%2Bimage%2Bof%2Bconstruction%2Bsite%26ei%3DUTF-8%26fr%3Dcrmas%26fr2%3Dp%253As%252Cv%253Ai%252Cm%253Asb-top%26tab%3Dorganic%26ri%3D8&w=1000&h=750&imgurl=cdn3.vectorstock.com%2Fi%2F1000x1000%2F41%2F87%2Fcartoon-scene-of-building-construction-site-vector-42214187.jpg&rurl=https%3A%2F%2Fproper-cooking.info%2Fconstruction-site-animated&size=167KB&p=animated+image+of+construction+site&oid=4d6487ac17e64348d00cb44bfd45edf3&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top&fr=crmas&tt=Construction+Site+Animated&b=0&ni=160&no=8&ts=&tab=organic&sigr=rV42w7CLCWX5&sigb=C0n6UDnDJORF&sigi=WIQbzBNQr_1N&sigt=wnsIYoiRTWP0&.crumb=/cuwR1ORHL.&fr=crmas&fr2=p%3As%2Cv%3Ai%2Cm%3Asb-top" alt="Home Building" class="worker-image">
-            -->Home Building
+            <img src="{% static 'images\builder.jpg' %}" alt="Home Building" class="worker-image">
+            Home Building
             </label>
         </div>
         <div class="text-center mt-3">
@@ -271,16 +274,16 @@ function toggleAbout() {
 }
 const workers = {
     Electrician: [
-        { name: "John Doe", phone: "123-456-7890", location: "Downtown", image: "img\electrician_site.jpg" },
-        { name: "Jane Smith", phone: "987-654-3210", location: "Suburb", image: "D:\anjo - Copy\img\electrician_site.jpg" },
+        { name: "John Doe", phone: "123-456-7890", location: "Downtown", image: "{% static 'images/electrician_site.jpg' %}" },
+        { name: "Jane Smith", phone: "987-654-3210", location: "Suburb", image: "{% static 'images/electrician_site.jpg' %}" },
     ],
     Plumber: [
-        { name: "Sam Wilson", phone: "456-789-1234", location: "City Center", image: "https://via.placeholder.com/60" },
-        { name: "Sara Lee", phone: "321-654-9870", location: "Riverside", image: "https://via.placeholder.com/60" },
+        { name: "Sam Wilson", phone: "456-789-1234", location: "City Center", image: "{% static 'images/plumber_site.jpg' %}" },
+        { name: "Sara Lee", phone: "321-654-9870", location: "Riverside", image: "{% static 'images/plumber_site.jpg' %}" },
     ],
     "Home Building": [
-        { name: "Bob Brown", phone: "654-987-3210", location: "Hillside", image: "https://via.placeholder.com/60" },
-        { name: "Alice Green", phone: "789-123-4567", location: "Beachside", image: "https://via.placeholder.com/60" },
+        { name: "Bob Brown", phone: "654-987-3210", location: "Hillside", image: "{% static 'images/cons_site.jpg' %}" },
+        { name: "Alice Green", phone: "789-123-4567", location: "Beachside", image:"{% static 'images/cons_site.jpg' %}" },
     ],
 };
 function showProfile() {
